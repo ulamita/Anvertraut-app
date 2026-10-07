@@ -1,0 +1,27 @@
+name: PWA smoke checks
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate files and offline assets
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          for name in ('index.html','manifest.webmanifest','sw.js','icon.svg'):
+              assert Path(name).is_file(), name
+          html=Path('index.html').read_text()
+          manifest=json.loads(Path('manifest.webmanifest').read_text())
+          assert manifest['display']=='standalone'
+          assert manifest['start_url']=='./index.html'
+          for section in ('home','rechner','check','wissen','kontakt'):
+              assert f'id="{section}"' in html, section
+          assert 'localStorage' in html
+          assert 'anvertraut-v01' in Path('sw.js').read_text()
+          print('ANVERTRAUT smoke checks passed')
+          PY
