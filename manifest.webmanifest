@@ -1,0 +1,19 @@
+{
+  "name": "ANVERTRAUT Begleiter",
+  "short_name": "ANVERTRAUT",
+  "description": "Orientierung und Planung für Pflegeeltern",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f6f4ef",
+  "theme_color": "#244b47",
+  "lang": "de",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
